@@ -1,4 +1,5 @@
-﻿using System;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using OmniSharp.Extensions.LanguageServer.Protocol.Client;
 using OmniSharp.Extensions.LanguageServer.Protocol.Models;
@@ -10,23 +11,24 @@ namespace OmniSharp.Extensions.LanguageServer.Protocol.Document.Client.Proposals
     public static class SemanticTokensExtensions
     {
         public static Task<SemanticTokens> SemanticTokens(this ILanguageClientDocument mediator,
-            SemanticTokensParams @params)
+            SemanticTokensParams @params, CancellationToken cancellationToken = default)
         {
-            return mediator.SendRequest<SemanticTokensParams, SemanticTokens>(DocumentNames.SemanticTokens, @params);
+            return mediator.SendRequest<SemanticTokensParams, SemanticTokens>(
+                DocumentNames.SemanticTokens, @params, cancellationToken);
         }
 
-        public static Task<SemanticTokensOrSemanticTokensEdits> SemanticTokensEdits(
-            this ILanguageClientDocument mediator, SemanticTokensEditsParams @params)
+        public static Task<SemanticTokensOrSemanticTokensEdits> SemanticTokensEdits(this ILanguageClientDocument mediator,
+            SemanticTokensEditsParams @params, CancellationToken cancellationToken = default)
         {
             return mediator.SendRequest<SemanticTokensEditsParams, SemanticTokensOrSemanticTokensEdits>(
-                DocumentNames.SemanticTokensEdits, @params);
+                DocumentNames.SemanticTokensEdits, @params, cancellationToken);
         }
 
         public static Task<Container<SemanticTokens>> SemanticTokensRange(this ILanguageClientDocument mediator,
-            SemanticTokensRangeParams @params)
+            SemanticTokensRangeParams @params, CancellationToken cancellationToken = default)
         {
             return mediator.SendRequest<SemanticTokensRangeParams, Container<SemanticTokens>>(
-                DocumentNames.SemanticTokensRange, @params);
+                DocumentNames.SemanticTokensRange, @params, cancellationToken);
         }
     }
 }
